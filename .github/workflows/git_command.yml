@@ -5,19 +5,19 @@ on:
     branches:
       - '*'
 jobs:
-  build:
+  git_command:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: git setting
-      run: |
-        git config --local user.email "takuya@netlab.jp"
-        git config --local user.name "Takuya Noguchi"
-    - name: Commit files
-      run: |
-        echo test > test.txt
-        git add .
-        git commit -m "Add test.txt"
-        git pull
-        git push origin master
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: git setting
+        run: |
+          git config --local user.email "takuya@netlab.jp"
+          git config --local user.name "Takuya Noguchi"
+      - name: Commit files
+        run: |
+          echo test > test.txt
+          git add .
+          git commit -m "Add test.txt"
+          git pull
+          git push origin master
