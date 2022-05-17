@@ -13,11 +13,11 @@ jobs:
       - name: git setting
         run: |
           git config --local user.email "takuya@netlab.jp"
-          git config --local user.name "Takuya Noguchi"
+          git config --local user.name "${GITHUB_ACTOR}"
       - name: Commit files
         run: |
           echo test > test.txt
           git add .
           git commit -m "Add test.txt"
           git pull
-          git push origin main
+          git push origin ${{ github.ref_name }}
