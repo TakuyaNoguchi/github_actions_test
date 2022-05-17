@@ -7,9 +7,6 @@ on:
 jobs:
   git_command:
     runs-on: ubuntu-latest
-    permissions:
-      : write
-      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
