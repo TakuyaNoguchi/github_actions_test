@@ -7,6 +7,8 @@ on:
 jobs:
   git_command:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/nacl-ltd/centos7_ruby_mariadb
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -16,13 +18,14 @@ jobs:
           git config --local user.name "${GITHUB_ACTOR}"
       - name: Commit files
         run: |
+          bundle --path=vendor/bundle
           echo $(date '+%Y/%m/%d %H:%M:%S') > test.txt
-          git add .
-          git commit -m "Add test.txt"
+          git add test.txt
+          git commit -m "Change test.txt"
           git pull
           git push origin "${GITHUB_REF_NAME}"
       - name: Cache
         uses: actions/cache@v2
         with:
-          key: ${{ runner.os }}-gem-${{ hashFiles('**/test.txt') }}
-          path: ./
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          path: vendor/bundle
