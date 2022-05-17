@@ -7,6 +7,9 @@ on:
 jobs:
   git_command:
     runs-on: ubuntu-latest
+    permissions:
+      : write
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -20,4 +23,9 @@ jobs:
           git add .
           git commit -m "Add test.txt"
           git pull
-          git push origin ${{ github.ref_name }}
+          git push origin "${GITHUB_REF_NAME}"
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/test.txt') }}
+          path: ./
