@@ -16,7 +16,7 @@ jobs:
           git config --local user.name "${GITHUB_ACTOR}"
       - name: Commit files
         run: |
-          echo test > test.txt
+          echo $(date '+%Y/%m/%d %H:%M:%S') > test.txt
           git add .
           git commit -m "Add test.txt"
           git pull
